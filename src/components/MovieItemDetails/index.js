@@ -66,11 +66,11 @@ const MovieItemDetails = props => {
         }
 
         const formattedSimilarMovies = data.movie_details.similar_movies.map(
-          each => ({
-            id: each.id,
-            backdropPath: each.backdrop_path,
-            posterPath: each.poster_path,
-            title: each.title,
+          each0 => ({
+            id: each0.id,
+            backdropPath: each0.backdrop_path,
+            posterPath: each0.poster_path,
+            title: each0.title,
           }),
         )
 

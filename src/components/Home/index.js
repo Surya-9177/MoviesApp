@@ -7,7 +7,6 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Loader from 'react-loader-spinner'
 import {MdError} from 'react-icons/md'
-import {FaGoogle, FaTwitter, FaInstagram, FaYoutube} from 'react-icons/fa'
 import Footer from '../Footer'
 import Header from '../Header'
 import TrendingItem from '../TrendingItem'
@@ -19,14 +18,11 @@ const apiStatusConstants = {
   failure: 'FAILURE',
 }
 
-const Home = props => {
-  const jwtToken = Cookies.get('jwt_token')
-  if (jwtToken === undefined) {
-    return <Redirect to="/login" />
-  }
-
+const Home = () => {
   const [retryTrigger, setRetryTrigger] = useState(0)
+
   const [retryTrendingTrigger, setRetryTrendingTrigger] = useState(0)
+
   const [retryOriginalTrigger, setOriginalRetryTrigger] = useState(0)
 
   const [apiResponse, setApiResponse] = useState({
@@ -45,6 +41,10 @@ const Home = props => {
 
   useEffect(() => {
     const getHomeResponse = async () => {
+      const jwtToken = Cookies.get('jwt_token')
+      if (jwtToken === undefined) {
+        return <Redirect to="/login" />
+      }
       setApiResponse({
         status: apiStatusConstants.inProgress,
       })
@@ -70,12 +70,17 @@ const Home = props => {
           status: apiStatusConstants.failure,
         })
       }
+      return null
     }
     getHomeResponse()
   }, [retryTrigger])
 
   useEffect(() => {
     const getData = async () => {
+      const jwtToken = Cookies.get('jwt_token')
+      if (jwtToken === undefined) {
+        return <Redirect to="/login" />
+      }
       console.log('trending called')
       setTrendingApiResponse({
         trendingSectionStatus: apiStatusConstants.inProgress,
@@ -112,6 +117,7 @@ const Home = props => {
           trendingSectionStatus: apiStatusConstants.failure,
         }))
       }
+      return null
     }
     getData()
   }, [retryTrendingTrigger])
@@ -119,6 +125,10 @@ const Home = props => {
   useEffect(() => {
     console.log('original api called')
     const getOriginalData = async () => {
+      const jwtToken = Cookies.get('jwt_token')
+      if (jwtToken === undefined) {
+        return <Redirect to="/login" />
+      }
       setOriginalApiResponse({
         originalSectionStatus: apiStatusConstants.inProgress,
         originalList: [],
@@ -151,6 +161,7 @@ const Home = props => {
           originalSectionStatus: apiStatusConstants.failure,
         }))
       }
+      return null
     }
     getOriginalData()
   }, [retryOriginalTrigger])
@@ -172,13 +183,6 @@ const Home = props => {
     setOriginalRetryTrigger(prev => prev + 1)
   }
 
-  const retryOriginalSec = () => {
-    setOriginalApiResponse({
-      originalSectionStatus: apiStatusConstants.initial,
-      originalList: [],
-    })
-    setOriginalRetryTrigger(prev => prev + 1)
-  }
   const retryTrendingSec = () => {
     console.log('retry Trending section')
     setTrendingApiResponse({
@@ -188,11 +192,13 @@ const Home = props => {
     setRetryTrendingTrigger(prev => prev + 1)
   }
 
-  const renderLoadingView1 = () => (
-    <div data-testid="loader" className="products-loader-container">
-      <Loader type="Circles" color="red" height="50" width="50" />
-    </div>
-  )
+  const retryOriginalSec = () => {
+    setOriginalApiResponse({
+      originalSectionStatus: apiStatusConstants.initial,
+      originalList: [],
+    })
+    setOriginalRetryTrigger(prev => prev + 1)
+  }
 
   const renderLoadingView2 = () => (
     <div data-testid="loader" className="products-loader-container1">
@@ -232,18 +238,6 @@ const Home = props => {
     </div>
   )
 
-  const renderOriginalFailureView = () => (
-    <div className="failure-view-con2">
-      <img
-        src="https://res.cloudinary.com/dzie383ct/image/upload/v1744366211/alert-triangle_n68jo2.png"
-        alt="failure view"
-      />
-      <MdError />
-      <p>Something went wrong. Please try again</p>
-      <button onClick={retryOriginalSec}>Try Again</button>
-    </div>
-  )
-
   const renderTrendingView = () => {
     const {trendingSectionStatus} = trendingApiResponse
 
@@ -258,6 +252,18 @@ const Home = props => {
         return null
     }
   }
+
+  const renderOriginalFailureView = () => (
+    <div className="failure-view-con2">
+      <img
+        src="https://res.cloudinary.com/dzie383ct/image/upload/v1744366211/alert-triangle_n68jo2.png"
+        alt="failure view"
+      />
+      <MdError />
+      <p>Something went wrong. Please try again</p>
+      <button onClick={retryOriginalSec}>Try Again</button>
+    </div>
+  )
 
   const renderOriginalSuccessView = () => {
     const {originalList} = originalApiResponse
@@ -291,17 +297,9 @@ const Home = props => {
     }
   }
 
-  const renderFailureView = () => (
-    <div className="failure-con">
-      <Header />
-      <div className="failure-con2">
-        <img
-          src="https://res.cloudinary.com/dzie383ct/image/upload/v1744274899/Background-Complete_q6tgar.png"
-          alt="failure view"
-        />
-        <p>Something went wrong. Please try again</p>
-        <button onClick={retry}>Try Again</button>
-      </div>
+  const renderLoadingView1 = () => (
+    <div data-testid="loader" className="products-loader-container">
+      <Loader type="Circles" color="red" height="50" width="50" />
     </div>
   )
 
@@ -345,6 +343,20 @@ const Home = props => {
       </div>
     )
   }
+
+  const renderFailureView = () => (
+    <div className="failure-con">
+      <Header />
+      <div className="failure-con2">
+        <img
+          src="https://res.cloudinary.com/dzie383ct/image/upload/v1744274899/Background-Complete_q6tgar.png"
+          alt="failure view"
+        />
+        <p>Something went wrong. Please try again</p>
+        <button onClick={retry}>Try Again</button>
+      </div>
+    </div>
+  )
 
   const renderResult = () => {
     const {status} = apiResponse

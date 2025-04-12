@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import {HiOutlineSearch} from 'react-icons/hi'
@@ -73,12 +73,15 @@ const Search = () => {
     return searchRes.length !== 0 ? (
       <ul className="search-res-con">
         {searchRes.map(each => (
-          <img
-            key={each.id}
-            alt={each.title}
-            className="search-con-img"
-            src={each.posterPath}
-          />
+          <li key={each.id}>
+            <Link to={`/movies/${each.id}`}>
+              <img
+                alt={each.title}
+                className="search-con-img"
+                src={each.posterPath}
+              />
+            </Link>
+          </li>
         ))}
       </ul>
     ) : (
@@ -139,6 +142,7 @@ const Search = () => {
             className="search-input"
             type="search"
             onChange={onChangeEventHandler}
+            value={searchInput}
           />
           <button
             onClick={makeApiCall}
