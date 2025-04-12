@@ -1,0 +1,19 @@
+.popular-con {
+  min-height: 100vh;
+  background-color: #000000;
+  padding: 20px;
+}
+li {
+  list-style-type: none;
+}
+.failure-con {
+  background-color: #000000;
+  min-height: 100vh;
+}
+.popular-items-con {
+  display: flex;
+  flex-wrap: wrap;
+}
+.popular-item {
+  margin: 12px;
+}

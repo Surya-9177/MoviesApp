@@ -1,0 +1,16 @@
+.t-img {
+  width: 254px;
+  height: 190px;
+  top: 708px;
+  left: 166px;
+  border-radius: 8px;
+  margin: 12px;
+}
+@media screen and (max-width: 767px) {
+  .t-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    margin: 8px;
+  }
+}

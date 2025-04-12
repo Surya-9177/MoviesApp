@@ -1,0 +1,35 @@
+.movie-top-sec {
+  min-width: 80vw;
+  background-size: cover;
+  min-height: 30vh;
+  padding: 10px;
+}
+.inside-sec {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+}
+.item-head {
+  font-size: 40px;
+}
+.item-para {
+  font-size: 18px;
+}
+@media screen and (max-width: 767px) {
+  .movie-top-sec {
+    background-size: cover;
+    min-height: 30vh;
+    padding: 10px;
+  }
+  .inside-sec {
+    display: flex;
+    justify-content: space-between;
+    min-width: 40vw;
+  }
+  .item-head {
+    font-size: 20px;
+  }
+  .item-para {
+    font-size: 12px;
+  }
+}

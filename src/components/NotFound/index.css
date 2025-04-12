@@ -1,0 +1,19 @@
+.not-found-con {
+  background-image: url('https://res.cloudinary.com/dzie383ct/image/upload/v1743587618/snow-removal-machine-working-high-ski-slope-snowstorm_454047-2149_1_xhi6ea.png');
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+.not-found-head {
+  font-size: 64px;
+}
+.not-found-para {
+  font-size: 20px;
+}
+.b1 {
+  width: 120px;
+}
